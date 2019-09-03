@@ -20,17 +20,33 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: false,
+  maxAge: 60*1000}
+}))
+
+
 app.use('/login',function(req,res){
-  res.end('Should Login')
+  res.end('Should Login!!!')
 })
 app.use('/session',function(req,res){
-  res.end('Session')
+  var username = req.query.username
+  req.session.username = username
+  res.redirect('/home')
+
 })
 app.use('/logout',function(req,res){
   res.end('Logout')
 })
 app.use('/home',function(req,res){
-  res.end('Home')
+  if(!req.session.username){
+    res.redirect('/login')
+  }else{
+    res.end('Login Success')
+  }
 })
 
 app.use('/', indexRouter);
