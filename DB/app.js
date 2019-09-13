@@ -41,16 +41,18 @@ app.use('/mongouser',(req,res)=>{
     const db = client.db(dbName);
     const collection = db.collection('JoonUsers');
     collection.insertOne(
-      {'id':'jk0002'},
-    {'age':'500'}),function(err,result){
+      {'CollectTitle':req.query.id,
+    'name':'joon','date':'2012.05.02'}),function(err,result){
       assert.equal(err, null);
       console.log("Inserted 3 documents into the collection");
       callback(result);
     }
     
     client.close();
-    res.end('Mongo!')
+    
   });
+  res.end('Mongo!')
+
 })
 
 // catch 404 and forward to error handler
