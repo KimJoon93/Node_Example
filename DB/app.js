@@ -42,7 +42,9 @@ app.use('/mongouser',(req,res)=>{
     const collection = db.collection('JoonUsers');
     collection.insertOne(
       {'CollectTitle':req.query.id,
-    'name':'joon','date':'2012.05.02'}),function(err,result){
+    'name':'joon',
+    'date':'2012.05.02',
+    'writerID':'avc'}),function(err,result){
       assert.equal(err, null);
       console.log("Inserted 3 documents into the collection");
       callback(result);
